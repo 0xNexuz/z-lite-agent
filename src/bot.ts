@@ -2,7 +2,7 @@ import { Telegraf } from 'telegraf';
 import { Wallet } from 'ethers';
 import * as dotenv from 'dotenv';
 import crypto from 'crypto';
-import express from 'express'; // The Cloud Keepalive Server
+import express, { Request, Response } from 'express'; // <-- Added strict types here
 import { initDb, getUserWallet, writeData, readData } from './db';
 import { startCronJobs } from './cron';
 
@@ -96,7 +96,6 @@ bot.command('monitor', async (ctx) => {
     const tasks = await readData<any>('tasks.json');
     
     if (!tasks[userId]) tasks[userId] = [];
-    // Clear old tasks to keep the demo clean, add the new one
     tasks[userId] = [{ id: taskId, type: 'monitor', token: token.toUpperCase(), threshold: parseInt(threshold), status: 'active' }];
     await writeData('tasks.json', tasks);
 
@@ -106,7 +105,8 @@ bot.command('monitor', async (ctx) => {
 // --- 5. THE CLOUD KEEPALIVE SERVER ---
 const app = express();
 
-app.get('/', (req, res) => {
+// <-- Added req: Request, res: Response so TypeScript passes the build
+app.get('/', (req: Request, res: Response) => {
     res.send('Z-Lite Autonomous Agent is online and monitoring. ⚡');
 });
 
@@ -115,7 +115,7 @@ const PORT = process.env.PORT || 3000;
 // --- 6. BOOT SEQUENCE ---
 initDb().then(() => {
     bot.launch();
-    startCronJobs(bot); // Passes the bot to cron so it can send alerts
+    startCronJobs(bot); 
     console.log('⚡ Z-Lite Telegram Listener is online.');
     
     app.listen(PORT, () => {
