@@ -1,0 +1,16 @@
+# Dependency directories
+node_modules/
+
+# Environment variables (CRITICAL SECURITY)
+.env
+
+# Database and Wallets (CRITICAL SECURITY)
+data/
+
+# Build outputs (if you compile later)
+dist/
+build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
