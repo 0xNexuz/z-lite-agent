@@ -1,0 +1,11 @@
+{
+  "7337186635": [
+    {
+      "id": "918228f9",
+      "type": "monitor",
+      "token": "ETH",
+      "threshold": 20,
+      "status": "active"
+    }
+  ]
+}
