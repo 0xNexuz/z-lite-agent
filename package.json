@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/bot.ts",
-    "dev": "ts-node src/bot.ts"
+    "start": "node -r ts-node/register src/bot.ts",
+    "dev": "node -r ts-node/register src/bot.ts"
   },
   "keywords": [],
   "author": "",
